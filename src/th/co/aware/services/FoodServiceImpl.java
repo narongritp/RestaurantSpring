@@ -14,20 +14,17 @@ public class FoodServiceImpl implements FoodService{
 	
 	@Override
 	public int addFood(FoodBean food) {
-		// TODO Auto-generated method stub
-		return 0;
+		return foodDAO.addFood(food);
 	}
 
 	@Override
 	public int updateFood(FoodBean food) {
-		// TODO Auto-generated method stub
-		return 0;
+		return foodDAO.updateFood(food);
 	}
 
 	@Override
 	public int deleteFood(int foodId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return foodDAO.deleteFood(foodId);
 	}
 
 	@Override
