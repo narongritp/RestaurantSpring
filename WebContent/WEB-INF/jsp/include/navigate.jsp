@@ -1,5 +1,6 @@
 <%@page import="th.co.aware.config.MYKEY"%>
 <%@page import="th.co.aware.bean.UserBean"%>
+
 <%
 	
 	if(session.getAttribute(MYKEY.SES_USERLOGIN)!=null){

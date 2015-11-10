@@ -17,7 +17,10 @@ public class HomePageController {
 	
 	@RequestMapping("/login")
 	public ModelAndView loginPage(ModelMap mm){
-		mm.addAttribute("user", new UserBean());
+		UserBean user = new UserBean();
+		user.setUsername("admin");
+		user.setPassword("2672");
+		mm.addAttribute("user", user);
 		return new ModelAndView("login",mm);
 	}
 }

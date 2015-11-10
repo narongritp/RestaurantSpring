@@ -22,7 +22,7 @@ public class ValidationController {
 	
 	@RequestMapping(value="login",method=RequestMethod.POST)
 	public String login(
-			@ModelAttribute("username")UserBean user,
+			@ModelAttribute("user")UserBean user,
 			HttpServletRequest request
 			){
 		MYLOG.print(user.getUsername()+" validating...");

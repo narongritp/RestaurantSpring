@@ -7,18 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Index</title>
-<style type="text/css">
-table, th {
-	align: center;
-	border: 1px solid;
-	border-collapse: collapse;
-}
-
-td {
-	width: 25%;
-	border: 1px solid;
-}
-</style>
+<%@include file="include/style.jsp"%>
 </head>
 <body style="font-family:'tahoma';">
 	<h1>Welcome to Restaurant Management System</h1>

@@ -1,3 +1,5 @@
+<%@page import="th.co.aware.bean.UserBean"%>
+<%@page import="th.co.aware.config.MYKEY"%>
 <%@page import="th.co.aware.bean.FoodBean"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -6,11 +8,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Food List</title>
+<title>Food Menu</title>
+<%@include file="include/style.jsp"%>
 </head>
 <body style="font-family:'tahoma';">
-
-
+<h1>Food Menu</h1>
+<hr>
+<%@include file="include/navigatevalidate.jsp"%>
+<hr>
 	<table width="60%" align="center" border="1">
 		<%
 			Object obj = request.getAttribute("listFood");

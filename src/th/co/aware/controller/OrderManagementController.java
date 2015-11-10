@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import th.co.aware.bean.FoodBean;
 import th.co.aware.bean.OrderBean;
 import th.co.aware.bean.OrderListBean;
 import th.co.aware.bean.UserBean;
 import th.co.aware.config.MYKEY;
+import th.co.aware.config.MYLOG;
 import th.co.aware.services.FoodService;
 import th.co.aware.services.OrderListService;
 import th.co.aware.services.OrderService;
@@ -63,6 +65,11 @@ public class OrderManagementController {
 		return new ModelAndView("ro_viewOrder",mm);
 	}
 	
+	@RequestMapping(value="manage-order")
+	public ModelAndView manageOrderPage(){
+		return new ModelAndView("ro_viewOrderDetail");
+	}
+	
 	//process
 	@RequestMapping(value="addOrder",method=RequestMethod.POST)
 	public String addOrder(
@@ -76,7 +83,7 @@ public class OrderManagementController {
 		order.setStatus("W");
 		order.setDetail(table+"&"+detail);
 		session.setAttribute(MYKEY.SES_ORDER, order);
-		
+		MYLOG.print("new order to session");
 		return "redirect:/food-manage/list-food";
 	}
 	@RequestMapping(value="commitOrder")
@@ -89,22 +96,25 @@ public class OrderManagementController {
 		session.removeAttribute(MYKEY.SES_ORDER);
 		session.removeAttribute(MYKEY.SES_ORDERLIST);
 		model.addAttribute("order_id", order.getOrderId());
+		MYLOG.print("commit order to database");
 		return "view-order";
 	}
 	@RequestMapping(value="updateOrder")
 	public String updateOrder(@ModelAttribute("order")OrderBean order,Model model){
 		orderService.updateOrder(order);
 		model.addAttribute("order_id", order.getOrderId());
+		MYLOG.print("update order");
 		return "view-order";
 	}
 	
-	@RequestMapping(value="addItem",method=RequestMethod.GET)
+	@RequestMapping(value="addItem",method=RequestMethod.POST)
 	public String addItem(@RequestParam("food_id")String food_id,
 			@RequestParam("amount")String food_amount,
 			HttpServletRequest request,ModelMap mm){
 		HttpSession session = request.getSession();
 		Object objOrder = session.getAttribute(MYKEY.SES_ORDER);
 		if(objOrder!=null){
+			MYLOG.print("add item to session");
 			OrderBean order = (OrderBean)objOrder;
 			int foodId = Integer.parseInt(food_id);
 			int amount = Integer.parseInt(food_amount);
@@ -115,24 +125,25 @@ public class OrderManagementController {
 					OrderListBean orderListBean = listItem.get(foodId);
 					orderListBean.setAmount(amount);
 					listItem.put(foodId,orderListBean);
+					MYLOG.print("update item!");
 				}else{
-					int price = foodService.getFoodById(foodId).getPrice();
-					listItem.put(foodId, new OrderListBean(-1,foodId,price,amount));
+					FoodBean food = foodService.getFoodById(foodId);
+					listItem.put(foodId, new OrderListBean(-1,foodId,food.getPrice(),amount,food.getName()));
+					MYLOG.print("new item!");
 				}
 				session.setAttribute(MYKEY.SES_ORDERLIST, listItem);
 			}else{
 				Map<Integer,OrderListBean> listItem = new HashMap<Integer,OrderListBean>();
-				int price = foodService.getFoodById(foodId).getPrice();
-				listItem.put(foodId, new OrderListBean(order.getOrderId(),foodId,price,amount));
+				FoodBean food = foodService.getFoodById(foodId);
+				listItem.put(foodId, new OrderListBean(-1,foodId,food.getPrice(),amount,food.getName()));
 				session.setAttribute(MYKEY.SES_ORDERLIST, listItem);
+				MYLOG.print("new item first time!");
 			}
 			return "redirect:/food-manage/list-food";
 		}else{
+			MYLOG.printError("Error : invalid order session!");
 			mm.addAttribute("message", "Error : invalid order session!");
 			return "errorPage";
 		}
 	}
-
-	
-	
 }

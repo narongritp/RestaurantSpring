@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>List Order</title>
-
+<%@include file="include/style.jsp"%>
 </head>
 <body style="font-family: 'tahoma';">
 	<h1>List Order</h1>
@@ -35,7 +35,8 @@
 				out.print("<td>" + ob.getStatus() + "</td>");
 				out.print("<td>--</td>");
 				out.print("<td>--</td>");
-				out.print("<td>--</td>");
+				out.print("<a href=''>");
+				out.print("<td><button>Go to Google</button></a></td>");
 				out.print("</tr>");
 			}
 			Object obj = request.getAttribute("listOrder");
@@ -69,29 +70,7 @@
 			}
 		%>
 	</table>
-	<p id="amount"></p>
-
-
-	<button onclick="add()">+</button>
-	<button onclick="minus()">-</button>
-
-	<script type="text/javascript">
-		var num = 1;
-		document.getElementById("amount").innerHTML = num;
-		
-		
-		function add() {
-			var x = num;
-			x = num++;
-			document.getElementById("amount").innerHTML = num;
-		}
-
-		function minus() {
-			var x = num;
-			x = num--;
-			document.getElementById("amount").innerHTML = num;
-		}
-	</script>
+	
 
 </body>
 </html>

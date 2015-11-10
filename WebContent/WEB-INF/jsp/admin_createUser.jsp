@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Create New User</title>
+<%@include file="include/style.jsp"%>
 </head>
 <body style="font-family:'tahoma';">
 	<center>

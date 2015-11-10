@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Error Page</title>
+<%@include file="include/style.jsp"%>
 </head>
 <body>
 	<h2>${message }</h2>

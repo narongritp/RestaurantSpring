@@ -5,17 +5,19 @@ public class OrderListBean {
 	private int foodId;
 	private int price;
 	private int amount;
+	private String foodName;
 	
 	public OrderListBean(){
 		
 	}
 	//constructor
-	public OrderListBean(int orderId, int foodId, int price, int amount) {
+	public OrderListBean(int orderId, int foodId, int price, int amount,String foodName) {
 		super();
 		this.orderId = orderId;
 		this.foodId = foodId;
 		this.price = price;
 		this.amount = amount;
+		this.foodName = foodName;
 	}
 	//---- another function
 	public int getTotalPrice(){
@@ -46,5 +48,11 @@ public class OrderListBean {
 	}
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	public String getFoodName() {
+		return foodName;
+	}
+	public void setFoodName(String foodName) {
+		this.foodName = foodName;
 	}
 }
