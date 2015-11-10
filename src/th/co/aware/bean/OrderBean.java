@@ -3,17 +3,17 @@ package th.co.aware.bean;
 import java.sql.Date;
 
 public class OrderBean {
-	private int orderId;
+	private String orderId;
 	private int userIdOrdering;
 	private int userIdCommit;
 	private String detail;
 	private String status;
 	private Date orderDate;
 	private Date commitDate;
-	public int getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(int orderId) {
+	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
 	public int getUserIdOrdering() {

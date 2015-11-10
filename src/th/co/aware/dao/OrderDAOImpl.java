@@ -34,17 +34,19 @@ public class OrderDAOImpl implements OrderDAO{
 	public OrderBean addOrder(OrderBean order) {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 		String SQL = "INSERT INTO "+ENTITY_NAME+"("+
+						FIELD_ORDERID+","+
 						FIELD_USERIDORDERING+","+
 						FIELD_DETAIL+","+
 						FIELD_STATUS+","+
-						FIELD_ORDERDATE+") VALUES(?,?,?,now())";
+						FIELD_ORDERDATE+") VALUES(?,?,?,?,now())";
 		int status = jdbc.execute(SQL, new PreparedStatementCallback<Integer>() {
 			@Override
 			public Integer doInPreparedStatement(PreparedStatement ps) throws DataAccessException {
 				try{
-					ps.setInt(1, order.getUserIdOrdering());
-					ps.setString(2, order.getDetail());
-					ps.setString(3, order.getStatus());
+					ps.setString(1, order.getOrderId());
+					ps.setInt(2, order.getUserIdOrdering());
+					ps.setString(3, order.getDetail());
+					ps.setString(4, order.getStatus());
 					return ps.executeUpdate();
 				}catch(SQLException ex){
 					MYLOG.printError(ex.getMessage());
@@ -53,6 +55,7 @@ public class OrderDAOImpl implements OrderDAO{
 			}
 		});
 		if(status==1){
+			
 			return order;
 		}else{
 			return null;
@@ -102,14 +105,14 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public OrderBean getOrderById(int orderId) {
+	public OrderBean getOrderById(String orderId) {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE "+FIELD_ORDERID+"="+orderId;
-		return jdbc.query(SQL, new RowMapper<OrderBean>() {
+		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE "+FIELD_ORDERID+" LIKE '"+orderId+"'";
+		List<OrderBean> orders =  jdbc.query(SQL, new RowMapper<OrderBean>() {
 			@Override
 			public OrderBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 				OrderBean order = new OrderBean();
-				order.setOrderId(rs.getInt(FIELD_ORDERID));
+				order.setOrderId(rs.getString(FIELD_ORDERID));
 				order.setUserIdOrdering(rs.getInt(FIELD_ORDERID));
 				order.setUserIdCommit(rs.getInt(FIELD_USERIDCOMMIT));
 				order.setDetail(rs.getString(FIELD_DETAIL));
@@ -118,19 +121,45 @@ public class OrderDAOImpl implements OrderDAO{
 				order.setCommitDate(rs.getDate(FIELD_COMMITDATE));
 				return order;
 			}
-		}).get(0);
+		});
+		
+		if(orders!=null&orders.size()>0){
+			return orders.get(0);
+		}else{
+			return null;
+		}
 	}
 
 	@Override
 	public List<OrderBean> getAllOrder() {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM "+ENTITY_NAME;
+		String SQL = "SELECT * FROM "+ENTITY_NAME+" ORDER BY "+FIELD_ORDERDATE+" DESC";
 		return jdbc.query(SQL, new RowMapper<OrderBean>() {
 			@Override
 			public OrderBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 				OrderBean order = new OrderBean();
-				order.setOrderId(rs.getInt(FIELD_ORDERID));
-				order.setUserIdOrdering(rs.getInt(FIELD_ORDERID));
+				order.setOrderId(rs.getString(FIELD_ORDERID));
+				order.setUserIdOrdering(rs.getInt(FIELD_USERIDORDERING));
+				order.setUserIdCommit(rs.getInt(FIELD_USERIDCOMMIT));
+				order.setDetail(rs.getString(FIELD_DETAIL));
+				order.setStatus(rs.getString(FIELD_STATUS));
+				order.setOrderDate(rs.getDate(FIELD_ORDERDATE));
+				order.setCommitDate(rs.getDate(FIELD_COMMITDATE));
+				return order;
+			}
+		});
+	}
+
+	@Override
+	public List<OrderBean> getAllOrderW() {
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE status LIKE 'W' ORDER BY "+FIELD_ORDERDATE+" DESC";
+		return jdbc.query(SQL, new RowMapper<OrderBean>() {
+			@Override
+			public OrderBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+				OrderBean order = new OrderBean();
+				order.setOrderId(rs.getString(FIELD_ORDERID));
+				order.setUserIdOrdering(rs.getInt(FIELD_USERIDORDERING));
 				order.setUserIdCommit(rs.getInt(FIELD_USERIDCOMMIT));
 				order.setDetail(rs.getString(FIELD_DETAIL));
 				order.setStatus(rs.getString(FIELD_STATUS));

@@ -1,7 +1,7 @@
 package th.co.aware.bean;
 
 public class OrderListBean {
-	private int orderId;
+	private String orderId;
 	private int foodId;
 	private int price;
 	private int amount;
@@ -11,7 +11,7 @@ public class OrderListBean {
 		
 	}
 	//constructor
-	public OrderListBean(int orderId, int foodId, int price, int amount,String foodName) {
+	public OrderListBean(String orderId, int foodId, int price, int amount,String foodName) {
 		super();
 		this.orderId = orderId;
 		this.foodId = foodId;
@@ -25,10 +25,10 @@ public class OrderListBean {
 	}
 	
 	//---- setter getter
-	public int getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(int orderId) {
+	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
 	public int getFoodId() {

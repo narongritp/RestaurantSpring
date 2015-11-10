@@ -28,14 +28,14 @@ public class OrderListDAOImpl implements OrderListDAO{
 	DataSource dataSource;
 	
 	@Override
-	public List<OrderListBean> getAllItem() {
+	public List<OrderListBean> getAllItem(String orderId) {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM "+ENTITY_NAME;
+		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE "+FIELD_ORDERID+" LIKE '"+orderId+"'";
 		return jdbc.query(SQL, new RowMapper<OrderListBean>() {
 			@Override
 			public OrderListBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 				OrderListBean orderList = new OrderListBean();
-				orderList.setOrderId(rs.getInt(FIELD_ORDERID));
+				orderList.setOrderId(rs.getString(FIELD_ORDERID));
 				orderList.setFoodId(rs.getInt(FIELD_FOODID));
 				orderList.setPrice(rs.getInt(FIELD_PRICE));
 				orderList.setAmount(rs.getInt(FIELD_AMOUNT));
@@ -47,12 +47,13 @@ public class OrderListDAOImpl implements OrderListDAO{
 	@Override
 	public OrderListBean getItem(OrderListBean olb) {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE "+FIELD_ORDERID+"="+olb.getOrderId();
+		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE "+FIELD_ORDERID+" LIKE '"+olb.getOrderId()+"' AND "+
+		FIELD_FOODID+"="+olb.getFoodId();
 		return jdbc.query(SQL, new RowMapper<OrderListBean>() {
 			@Override
 			public OrderListBean mapRow(ResultSet rs, int rowNum) throws SQLException {
 				OrderListBean orderList = new OrderListBean();
-				orderList.setOrderId(rs.getInt(FIELD_ORDERID));
+				orderList.setOrderId(rs.getString(FIELD_ORDERID));
 				orderList.setFoodId(rs.getInt(FIELD_FOODID));
 				orderList.setPrice(rs.getInt(FIELD_PRICE));
 				orderList.setAmount(rs.getInt(FIELD_AMOUNT));
@@ -74,7 +75,7 @@ public class OrderListDAOImpl implements OrderListDAO{
 			@Override
 			public Integer doInPreparedStatement(PreparedStatement ps) throws DataAccessException {
 				try{
-					ps.setInt(1, olb.getOrderId());
+					ps.setString(1, olb.getOrderId());
 					ps.setInt(2, olb.getFoodId());
 					ps.setInt(3, olb.getPrice());
 					ps.setInt(4, olb.getAmount());

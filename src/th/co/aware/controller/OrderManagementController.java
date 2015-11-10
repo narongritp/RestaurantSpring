@@ -22,6 +22,7 @@ import th.co.aware.bean.OrderBean;
 import th.co.aware.bean.OrderListBean;
 import th.co.aware.bean.UserBean;
 import th.co.aware.config.MYKEY;
+import th.co.aware.config.MYLIB;
 import th.co.aware.config.MYLOG;
 import th.co.aware.services.FoodService;
 import th.co.aware.services.OrderListService;
@@ -54,15 +55,9 @@ public class OrderManagementController {
 	@RequestMapping(value="view-listorder")
 	public String viewListOrderPage(Model model){
 		List<OrderBean> listOrder = orderService.getAllOrder();
+		MYLOG.print("order list size :"+listOrder.size());
 		model.addAttribute("listOrder",listOrder);
 		return "ro_viewListOrder";
-	}
-	
-	@RequestMapping(value="view-order")
-	public ModelAndView viewOrderPage(@RequestParam("order_id")String orderId,ModelMap mm){
-		OrderBean order = orderService.getOrderById(Integer.parseInt(orderId));
-		mm.addAttribute("order", order);
-		return new ModelAndView("ro_viewOrder",mm);
 	}
 	
 	@RequestMapping(value="manage-order")
@@ -87,24 +82,33 @@ public class OrderManagementController {
 		return "redirect:/food-manage/list-food";
 	}
 	@RequestMapping(value="commitOrder")
-	public String commitOrderDB(HttpServletRequest request,Model model){
+	public String commitOrderDB(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		OrderBean order = (OrderBean)session.getAttribute(MYKEY.SES_ORDER);
 		Map<Integer,OrderListBean> orderList = (Map<Integer,OrderListBean>)session.getAttribute(MYKEY.SES_ORDERLIST);
+		
+		String orderId = "";
+		while(true){
+			orderId = MYLIB.generate();
+			if(orderService.getOrderById(orderId)==null){
+				break;
+			}
+		}
+		order.setOrderId(orderId);
 		orderService.addOrder(order);
-		orderListService.addItem(orderList);
+		orderListService.addItem(orderList,orderId);
 		session.removeAttribute(MYKEY.SES_ORDER);
 		session.removeAttribute(MYKEY.SES_ORDERLIST);
-		model.addAttribute("order_id", order.getOrderId());
-		MYLOG.print("commit order to database");
-		return "view-order";
+		MYLOG.print("commit order to database with id :"+orderId);
+		request.setAttribute("order", order);
+		return "redirect:/order-manage/view-listorder";
 	}
 	@RequestMapping(value="updateOrder")
 	public String updateOrder(@ModelAttribute("order")OrderBean order,Model model){
 		orderService.updateOrder(order);
 		model.addAttribute("order_id", order.getOrderId());
 		MYLOG.print("update order");
-		return "view-order";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="addItem",method=RequestMethod.POST)
@@ -128,14 +132,14 @@ public class OrderManagementController {
 					MYLOG.print("update item!");
 				}else{
 					FoodBean food = foodService.getFoodById(foodId);
-					listItem.put(foodId, new OrderListBean(-1,foodId,food.getPrice(),amount,food.getName()));
+					listItem.put(foodId, new OrderListBean(null,foodId,food.getPrice(),amount,food.getName()));
 					MYLOG.print("new item!");
 				}
 				session.setAttribute(MYKEY.SES_ORDERLIST, listItem);
 			}else{
 				Map<Integer,OrderListBean> listItem = new HashMap<Integer,OrderListBean>();
 				FoodBean food = foodService.getFoodById(foodId);
-				listItem.put(foodId, new OrderListBean(-1,foodId,food.getPrice(),amount,food.getName()));
+				listItem.put(foodId, new OrderListBean(null,foodId,food.getPrice(),amount,food.getName()));
 				session.setAttribute(MYKEY.SES_ORDERLIST, listItem);
 				MYLOG.print("new item first time!");
 			}

@@ -10,6 +10,7 @@ public interface OrderDAO {
 	public int updateOrder(OrderBean order);
 	public int cancelOrder(int orderId);
 	
-	public OrderBean getOrderById(int orderId);
+	public OrderBean getOrderById(String orderId);
 	public List<OrderBean> getAllOrder();
+	public List<OrderBean> getAllOrderW();
 }

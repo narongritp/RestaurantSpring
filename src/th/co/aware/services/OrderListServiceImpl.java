@@ -16,8 +16,8 @@ public class OrderListServiceImpl implements OrderListService{
 	OrderListDAO orderListDAO;
 
 	@Override
-	public List<OrderListBean> getAllItem() {
-		return orderListDAO.getAllItem();
+	public List<OrderListBean> getAllItem(String orderId) {
+		return orderListDAO.getAllItem(orderId);
 	}
 
 	@Override
@@ -26,11 +26,15 @@ public class OrderListServiceImpl implements OrderListService{
 	}
 
 	@Override
-	public int addItem(Map<Integer, OrderListBean> listItem) {
+	public int addItem(Map<Integer, OrderListBean> listItem,String orderId) {
+		
+		
 		Set<Integer> foodIds = listItem.keySet();
 		for (Iterator iterator = foodIds.iterator(); iterator.hasNext();) {
 			Integer foodId = (Integer) iterator.next();
-			orderListDAO.addItem(listItem.get(foodId));
+			OrderListBean orderListBean = listItem.get(foodId);
+			orderListBean.setOrderId(orderId);
+			orderListDAO.addItem(orderListBean);
 		}
 		return 1;
 	}

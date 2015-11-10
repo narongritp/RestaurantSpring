@@ -7,7 +7,6 @@
 <%@page import="th.co.aware.bean.OrderBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -16,33 +15,37 @@
 </head>
 <body style="font-family:'tahoma';">
 <hr>
-<%@include file="include/navigatevalidate.jsp"%><br>
--------------------------------
+<%@include file="include/navigatevalidate.jsp"%><br><br>
+<div align='right'>
+<a href='/RestaurantSpring/order-manage/commitOrder'>
+<button style="height:40px;width:100px">Submit Order</button></a>
 
+</div>
 <hr>
-<center><h3>Order</h3></center>
+<center><h3>ORDER</h3></center>
 	<table align="center" border="1" width="80%">
-		<th>Table</th>
-		<th width="80%" height="60px">Detail</th>
+		<th>TABLE</th>
+		<th width="80%" height="60px">DETAIL</th>
 		<%
 			Object objSes = session.getAttribute(MYKEY.SES_ORDER);
 			Object objlistSes = session.getAttribute(MYKEY.SES_ORDERLIST);
 			if (objSes != null) {
 				OrderBean ob = (OrderBean) objSes;
-				out.print("<tr align='center' heiht=''>");
+				out.print("<tr align='center' height='40px'>");
 				out.print("<td>"+ ob.getDetail().split("&")[0] +"</td>");
 				out.print("<td>" + ob.getDetail().split("&")[1] + "</td>");
 				out.print("</tr>");
 			}
 		%>
 	</table>
-	<center><h3>Food List</h3></center><br><br><br>
+	<br><br><hr>
+	<center><h3>FOOD LIST</h3></center>
 	<table width="60%" border="1" align="center">
 		<th height="60px">NO.</th>
-		<th>Food Name</th>
-		<th>Price</th>
-		<th>Amount</th>
-		<th>Total</th>
+		<th>FOOD NAME</th>
+		<th>PRICE</th>
+		<th>AMOUNT</th>
+		<th>TOTAL</th>
 		<%
 			if(objlistSes!=null){
 				double netTotal = 0;

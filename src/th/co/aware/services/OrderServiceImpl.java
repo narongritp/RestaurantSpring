@@ -28,13 +28,18 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public OrderBean getOrderById(int orderId) {
+	public OrderBean getOrderById(String orderId) {
 		return orderDAO.getOrderById(orderId);
 	}
 
 	@Override
 	public List<OrderBean> getAllOrder() {
 		return orderDAO.getAllOrder();
+	}
+
+	@Override
+	public List<OrderBean> getAllOrderW() {
+		return orderDAO.getAllOrderW();
 	}
 
 }
