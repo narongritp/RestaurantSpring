@@ -18,8 +18,10 @@ public class HomePageController {
 	@RequestMapping("/login")
 	public ModelAndView loginPage(ModelMap mm){
 		UserBean user = new UserBean();
-		user.setUsername("cooker");
-		user.setPassword("8608");
+//		user.setUsername("cooker");
+//		user.setPassword("8608");
+		user.setUsername("admin");
+		user.setPassword("2672");
 		mm.addAttribute("user", user);
 		return new ModelAndView("login",mm);
 	}

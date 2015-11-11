@@ -75,8 +75,8 @@ public class OrderManagementController {
 		OrderBean order = new OrderBean();
 		UserBean user = (UserBean)session.getAttribute(MYKEY.SES_USERLOGIN);
 		order.setUserIdOrdering(Integer.parseInt(user.getUserId()+""));
-		order.setStatus("W");
-		order.setDetail(table+"&"+detail);
+		order.setStatus("Wait");
+		order.setDetail("(Table:"+table+") "+detail);
 		session.setAttribute(MYKEY.SES_ORDER, order);
 		MYLOG.print("new order to session");
 		return "redirect:/food-manage/list-food";
@@ -102,13 +102,6 @@ public class OrderManagementController {
 		MYLOG.print("commit order to database with id :"+orderId);
 		request.setAttribute("order", order);
 		return "redirect:/order-manage/view-listorder";
-	}
-	@RequestMapping(value="updateOrder")
-	public String updateOrder(@ModelAttribute("order")OrderBean order,Model model){
-		orderService.updateOrder(order);
-		model.addAttribute("order_id", order.getOrderId());
-		MYLOG.print("update order");
-		return "redirect:/";
 	}
 	
 	@RequestMapping(value="addItem",method=RequestMethod.POST)

@@ -31,21 +31,41 @@
 				<td class="heading">ORDER ID</td>
 				<td class="heading">STATUS</td>
 				<td class="heading">ORDER DATE</td>
-				<td class="heading"></td>
+				<td class="heading">DETAIL</td>
 			</tr>
-			<c:forEach var="order" items="${model.allOrder}">
-				<tr align="center" style="border: 1px solid;background-color: #E6E6E6;">
+			<c:forEach var="order" items="${model.allOrderInpro}">
+				<tr align="center" style="border: 1px solid;background-color: #F3F781;">
 					<td>${order.orderId}</td>
 					<td>${order.status}</td>
 					<td>${order.orderDate}</td>
+					<td>${order.detail}</td>
 					<td><a href="commit?orderId=${order.orderId}">
 						<button style="width:100%;height:40px">Commit</button></a>
 					</td>
 				</tr>
-				<c:forEach var="item" varStatus="i" items="${model.allItem[order.orderId] }">
-					<tr  style="border: 0px solid;">
+				<c:forEach var="item" varStatus="i" items="${model.allItemInpro[order.orderId] }">
+					<tr  style="border: 0px solid;background-color: #F5F6CE;">
 						<td >&nbsp;</td>
-						<td colspan="2"]>${i.index+1 }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item.foodName}</td>
+						<td colspan="2">${i.index+1 }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item.foodName}</td>
+						<td align="right">${item.amount} ea.</td>
+					</tr>
+				</c:forEach>
+			</c:forEach>
+			
+			<c:forEach var="order" items="${model.allOrderWait}">
+				<tr align="center" style="border: 1px solid;background-color: #E6E6E6;height:40px">
+					<td>${order.orderId}</td>
+					<td>${order.status}</td>
+					<td>${order.orderDate}</td>
+					<td>
+<%-- 					<a href="commit?orderId=${order.orderId}"> --%>
+<!-- 						<button style="width:100%;height:40px">Commit</button></a> -->
+					</td>
+				</tr>
+				<c:forEach var="item" varStatus="i" items="${model.allItemWait[order.orderId] }">
+					<tr  style="border: 0px solid;background-color: #F2F2F2;">
+						<td >&nbsp;</td>
+						<td colspan="2">${i.index+1 }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item.foodName}</td>
 						<td align="right">${item.amount} ea.</td>
 					</tr>
 				</c:forEach>

@@ -151,9 +151,9 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public List<OrderBean> getAllOrderW() {
+	public List<OrderBean> getAllOrder(String status) {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE status LIKE 'W' ORDER BY "+FIELD_ORDERDATE+" DESC";
+		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE status LIKE '"+status+"' ORDER BY "+FIELD_ORDERDATE+" DESC";
 		return jdbc.query(SQL, new RowMapper<OrderBean>() {
 			@Override
 			public OrderBean mapRow(ResultSet rs, int rowNum) throws SQLException {

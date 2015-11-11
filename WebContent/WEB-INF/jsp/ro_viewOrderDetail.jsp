@@ -32,8 +32,7 @@
 			if (objSes != null) {
 				OrderBean ob = (OrderBean) objSes;
 				out.print("<tr align='center' height='40px'>");
-				out.print("<td>"+ ob.getDetail().split("&")[0] +"</td>");
-				out.print("<td>" + ob.getDetail().split("&")[1] + "</td>");
+				out.print("<td colspan='2'>" + ob.getDetail()+"</td>");
 				out.print("</tr>");
 			}
 		%>

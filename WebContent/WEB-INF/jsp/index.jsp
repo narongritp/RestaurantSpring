@@ -36,11 +36,20 @@
 			</td>
 			<!-- ==================================================== -->
 			<td>
+				<h2>Recieve Orders</h2><br>
 				<h3><a href="food-manage/list-food"><b>list food</b></a></h3><br>
-<!-- 				<h3><a href="food-manage/list-food"><b>list food</b></a></h3><br> -->
-				-----<br>
 				<h3><a href="order-manage/add-order"><b>new order</b></a></h3><br>
 				<h3><a href="order-manage/view-listorder"><b>list order</b></a></h3><br>
+				<hr>
+				<h2>Cooker</h2><br>
+				<h3><a href="cooker/view-orderlist"><b>view list orders</b></a></h3><br>
+				<hr>
+				<h2>Waitress</h2><br>
+				<h3><a href="waitress/view-orderlist"><b>view list orders</b></a></h3><br>
+				<hr>
+				<h2>Cashier</h2><br>
+				<h3><a href="cashier/view-orderlist"><b>view list orders</b></a></h3><br>
+				<hr>
 			</td>
 			<!-- ==================================================== -->
 			<td>

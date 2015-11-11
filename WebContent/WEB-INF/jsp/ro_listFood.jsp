@@ -22,14 +22,14 @@
 			if (obj != null) {
 				List<FoodBean> list = (List<FoodBean>) obj;
 				int idx = 0;
-				for (int row = 0; row <= list.size() / 3; row++) {
+				for (int row = 0; row <= list.size() / 4; row++) {
 					out.print("<tr align='center'>");
-					for (int col = 0; col < 3; col++) {
+					for (int col = 0; col < 4; col++) {
 						if (idx < list.size()) {
 							out.print("<td>");
 							out.print("<a href='detail-food?foodId="+list.get(idx).getFoodId()+" '>");
 							String pic = list.get(idx).getPicture()!=null?list.get(idx).getPicture():"http://localhost/tmppicture/empty.png";
-							out.print("<img src='"+pic+"' width='300px' height='250px'/>");
+							out.print("<img src='"+pic+"' width='240px' height='190px'/>");
 							out.print("</a><br>");
 							out.print("<b>"+list.get(idx).getFoodId() +"||"+ list.get(idx).getName() + "</b>");
 							out.print("</td>");

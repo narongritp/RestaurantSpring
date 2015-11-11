@@ -38,8 +38,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<OrderBean> getAllOrderW() {
-		return orderDAO.getAllOrderW();
+	public List<OrderBean> getAllOrder(String status) {
+		return orderDAO.getAllOrder(status);
 	}
 
 }

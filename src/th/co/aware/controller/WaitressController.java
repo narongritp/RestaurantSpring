@@ -23,8 +23,8 @@ import th.co.aware.services.OrderListService;
 import th.co.aware.services.OrderService;
 
 @Controller
-@RequestMapping("/cooker")
-public class CookerManagementController {
+@RequestMapping("/waitress")
+public class WaitressController {
 
 	@Autowired
 	OrderService orderService;
@@ -34,19 +34,30 @@ public class CookerManagementController {
 	FoodService foodService;
 	
 	@RequestMapping("view-orderlist")
-	public ModelAndView viewOrderList(ModelMap model){
-		List<OrderBean> allOrder = orderService.getAllOrder("Wait");
-		Map<String,List<OrderListBean>> allItem = new HashMap<>();
-		for(OrderBean ob : allOrder){
+	public ModelAndView viewOrder(ModelMap model){
+		List<OrderBean> allOrderInpro = orderService.getAllOrder("In progress");
+		Map<String,List<OrderListBean>> allItemInpro = new HashMap<>();
+		for(OrderBean ob : allOrderInpro){
 			List<OrderListBean> itemIn = orderListService.getAllItem(ob.getOrderId());
 			for(int i=0;i<itemIn.size();i++){
 				itemIn.get(i).setFoodName(foodService.getFoodById(itemIn.get(i).getFoodId()).getName());
 			}
-			allItem.put(ob.getOrderId(), itemIn);
+			allItemInpro.put(ob.getOrderId(), itemIn);
 		}
-		model.addAttribute("allOrder", allOrder);
-		model.addAttribute("allItem", allItem);
-		return new ModelAndView("c_viewOrderDetail","model",model);
+		List<OrderBean> allOrderWait = orderService.getAllOrder("Wait");
+		Map<String,List<OrderListBean>> allItemWait = new HashMap<>();
+		for(OrderBean ob : allOrderWait){
+			List<OrderListBean> itemIn = orderListService.getAllItem(ob.getOrderId());
+			for(int i=0;i<itemIn.size();i++){
+				itemIn.get(i).setFoodName(foodService.getFoodById(itemIn.get(i).getFoodId()).getName());
+			}
+			allItemWait.put(ob.getOrderId(), itemIn);
+		}
+		model.addAttribute("allOrderInpro", allOrderInpro);
+		model.addAttribute("allItemInpro", allItemInpro);
+		model.addAttribute("allOrderWait", allOrderWait);
+		model.addAttribute("allItemWait", allItemWait);
+		return new ModelAndView("w_viewOrderDetail","model",model);
 	}
 	
 	@RequestMapping("commit")
@@ -59,13 +70,14 @@ public class CookerManagementController {
 			UserBean user = (UserBean)obj;
 			OrderBean ob = orderService.getOrderById(orderId);
 			ob.setUserIdCommit(user.getUserId());
-			ob.setStatus("In progress");
+			ob.setStatus("Served");
 			orderService.updateOrder(ob);
-			return "redirect:/cooker/view-orderlist";
+			return "redirect:/waitress/view-orderlist";
 		}else{
 			MYLOG.printError("Error : user session failed!");
 			mm.addAttribute("message", "Error : user session failed!");
 			return "errorPage";
 		}
 	}
+	
 }

@@ -1,5 +1,7 @@
 package th.co.aware.bean;
 
+import java.text.DecimalFormat;
+
 public class OrderListBean {
 	private String orderId;
 	private int foodId;
@@ -22,6 +24,14 @@ public class OrderListBean {
 	//---- another function
 	public int getTotalPrice(){
 		return price*amount;
+	}
+	public String getTotalPriceFormat(){
+		DecimalFormat df = new DecimalFormat("#,###.00");
+		return df.format(price*amount);
+	}
+	public String getPriceFormat(){
+		DecimalFormat df = new DecimalFormat("#,###.00");
+		return df.format(price);
 	}
 	
 	//---- setter getter

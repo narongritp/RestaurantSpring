@@ -11,5 +11,5 @@ public interface OrderService {
 	
 	public OrderBean getOrderById(String orderId);
 	public List<OrderBean> getAllOrder();
-	public List<OrderBean> getAllOrderW();
+	public List<OrderBean> getAllOrder(String status);
 }

@@ -23,9 +23,9 @@ import th.co.aware.services.OrderListService;
 import th.co.aware.services.OrderService;
 
 @Controller
-@RequestMapping("/cooker")
-public class CookerManagementController {
-
+@RequestMapping("/cashier")
+public class CashierController {
+	
 	@Autowired
 	OrderService orderService;
 	@Autowired
@@ -34,23 +34,43 @@ public class CookerManagementController {
 	FoodService foodService;
 	
 	@RequestMapping("view-orderlist")
-	public ModelAndView viewOrderList(ModelMap model){
-		List<OrderBean> allOrder = orderService.getAllOrder("Wait");
-		Map<String,List<OrderListBean>> allItem = new HashMap<>();
-		for(OrderBean ob : allOrder){
+	public ModelAndView viewOrder(ModelMap model){
+		List<OrderBean> allOrderServed = orderService.getAllOrder("Served");
+		Map<String,List<OrderListBean>> allItemServed = new HashMap<>();
+		for(OrderBean ob : allOrderServed){
 			List<OrderListBean> itemIn = orderListService.getAllItem(ob.getOrderId());
 			for(int i=0;i<itemIn.size();i++){
 				itemIn.get(i).setFoodName(foodService.getFoodById(itemIn.get(i).getFoodId()).getName());
 			}
-			allItem.put(ob.getOrderId(), itemIn);
+			allItemServed.put(ob.getOrderId(), itemIn);
 		}
-		model.addAttribute("allOrder", allOrder);
-		model.addAttribute("allItem", allItem);
-		return new ModelAndView("c_viewOrderDetail","model",model);
+		List<OrderBean> allOrderCheck = orderService.getAllOrder("Checked out");
+		Map<String,List<OrderListBean>> allItemCheck = new HashMap<>();
+		for(OrderBean ob : allOrderCheck){
+			List<OrderListBean> itemIn = orderListService.getAllItem(ob.getOrderId());
+			for(int i=0;i<itemIn.size();i++){
+				itemIn.get(i).setFoodName(foodService.getFoodById(itemIn.get(i).getFoodId()).getName());
+			}
+			allItemCheck.put(ob.getOrderId(), itemIn);
+		}
+		model.addAttribute("allOrderServed", allOrderServed);
+		model.addAttribute("allItemServed", allItemServed);
+		model.addAttribute("allOrderCheck", allOrderCheck);
+		model.addAttribute("allItemCheck", allItemCheck);
+		return new ModelAndView("cash_viewOrderDetail","model",model);
 	}
 	
-	@RequestMapping("commit")
-	public String commitOrder(
+	@RequestMapping("checkout-detail")
+	public String checkoutPage(@RequestParam("orderId")String orderId,ModelMap mm){
+		OrderBean order = orderService.getOrderById(orderId);
+		List<OrderListBean> allItem = orderListService.getAllItem(order.getOrderId());
+		mm.put("order", order);
+		mm.put("allItem", allItem);
+		return "cash_prepareCheckout";
+	}
+	
+	@RequestMapping("checkout")
+	public String checkoutOrder(
 			@RequestParam("orderId")String orderId,
 			HttpServletRequest request,
 			ModelMap mm){
@@ -59,13 +79,14 @@ public class CookerManagementController {
 			UserBean user = (UserBean)obj;
 			OrderBean ob = orderService.getOrderById(orderId);
 			ob.setUserIdCommit(user.getUserId());
-			ob.setStatus("In progress");
+			ob.setStatus("Checked out");
 			orderService.updateOrder(ob);
-			return "redirect:/cooker/view-orderlist";
+			return "redirect:/cashier/view-orderlist";
 		}else{
 			MYLOG.printError("Error : user session failed!");
 			mm.addAttribute("message", "Error : user session failed!");
 			return "errorPage";
 		}
 	}
+
 }

@@ -29,13 +29,13 @@ public class UserManagementController {
 	public ModelAndView createUserPage(@ModelAttribute("user") UserBean user,ModelMap mm){
 		List<String> position = new ArrayList<String>();
 		position.add("Select...");
-		position.add("Waitress");
-		position.add("Cooker");
 		position.add("Recieve orders");
+		position.add("Cooker");
+		position.add("Waitress");
+		position.add("Cashier");
 		position.add("Administrator");
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("position", position);
-		
 		//--
 		Object message = mm.get(MYKEY.MESSAGE);
 		if(message!=null){
@@ -57,7 +57,7 @@ public class UserManagementController {
 			return "admin_resultNewUser";
 		}else{
 			mm.addAttribute(MYKEY.MESSAGE,"Error: try again!");
-			return "redirect:/user-manage/create-user";
+			return "redirect:/RestaurantSpring/user-manage/create-user";
 		}
 	}
 
