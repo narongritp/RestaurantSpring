@@ -13,7 +13,7 @@ p {
 </style>
 </head>
 <body style="font-family: 'tahoma';">
-<div class="content">
+<div class="content80">
 	<form action="/RestaurantSpring/order-manage/addItem" method="POST">
 		<input type="hidden" name="food_id" value="${food.foodId }">
 		<table border="1" align="center">

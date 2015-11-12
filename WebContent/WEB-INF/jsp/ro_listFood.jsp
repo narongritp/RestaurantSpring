@@ -16,7 +16,7 @@
 <hr>
 <%@include file="include/navigatevalidate.jsp"%>
 <hr>
-<div class="content">
+<div class="content80">
 	<table width="100%" align="center" border="1">
 		<%
 			Object obj = request.getAttribute("listFood");

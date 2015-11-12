@@ -15,7 +15,7 @@
 			<legend>Food Information</legend>
 			<form:form method="POST" action="/RestaurantSpring/admin/addFood"
 				modelAttribute="food">
-				<table border="1" cellpadding="20px">
+				<table cellpadding="20px">
 					<tr>
 						<td>Name :</td>
 						<td><form:input path="name" /></td>

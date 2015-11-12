@@ -27,7 +27,7 @@
 		<button style="width:100px;height:60px">CHECK OUT!</button></a>
 	</div>
 	<hr>
-<div class="content">
+<div class="content80">
 	<table border="1" width="100" align="center">
 		<tr align="center">
 			<td class="heading">ORDER ID ${order.orderId}</td>

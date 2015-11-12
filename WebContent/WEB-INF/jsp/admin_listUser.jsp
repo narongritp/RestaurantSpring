@@ -20,10 +20,10 @@
 		<button>New User</button></a>
 	</div>
 	<hr>
-	<div class="content">
+	<div class="content80">
 		<table width="100%" border="1" align="center">
 			<tr align="center">
-				<td class="heading">NO.</td>
+				<td class="heading" height="60px">NO.</td>
 				<td class="heading">USERNAME</td>
 				<td class="heading">PASSWORD</td>
 				<td class="heading">FIRST NAME</td>

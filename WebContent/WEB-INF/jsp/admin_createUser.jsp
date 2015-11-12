@@ -10,7 +10,7 @@
 <%@include file="include/style.jsp"%>
 </head>
 <body style="font-family:'tahoma';">
-<div class="content">
+<div class="content80">
 	<center>
 		<fieldset style="width:40%">
 			<legend>Information form</legend>

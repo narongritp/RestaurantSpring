@@ -26,7 +26,7 @@
 	<div align='right'>
 	</div>
 	<hr>
-	<div class="content">
+	<div class="content80">
 	<table align="center" border="1" width="100%">
 		<tr align="center">
 			<td class="heading" width="10%" height="60px">ID</td>

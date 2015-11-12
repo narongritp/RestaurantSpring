@@ -37,10 +37,10 @@
 			</c:forEach>
 		</select>
 	</div>
-	<div style="margin-top: 100px" class="content">
+	<div style="margin-top: 100px" class="content80">
 		<table width="100%" border="1" align="center">
 			<tr align="center">
-				<td class="heading">NO.</td>
+				<td class="heading" height="60px">NO.</td>
 				<td class="heading">NAME</td>
 				<td class="heading">TYPE</td>
 				<td class="heading">PRICE</td>

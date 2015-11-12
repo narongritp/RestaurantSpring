@@ -23,7 +23,7 @@
 </div>
 <hr>
 <center><h3>ORDER</h3></center>
-<div class="content">
+<div class="content80">
 	<table align="center" border="1" width="100%">
 		<th>TABLE</th>
 		<th width="80%" height="60px">DETAIL</th>

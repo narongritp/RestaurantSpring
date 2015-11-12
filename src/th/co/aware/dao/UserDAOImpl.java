@@ -131,7 +131,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<UserBean> getAll() {
 		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-		String SQL = "SELECT * FROM "+ENTITY_NAME;
+		String SQL = "SELECT * FROM "+ENTITY_NAME+" WHERE "+FIELD_TYPE+" NOT LIKE '-1'";
 		return jdbc.query(SQL, new RowMapper<UserBean>() {
 			@Override
 			public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {
