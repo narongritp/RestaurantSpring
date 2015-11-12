@@ -23,7 +23,8 @@
 </div>
 <hr>
 <center><h3>ORDER</h3></center>
-	<table align="center" border="1" width="80%">
+<div class="content">
+	<table align="center" border="1" width="100%">
 		<th>TABLE</th>
 		<th width="80%" height="60px">DETAIL</th>
 		<%
@@ -71,5 +72,6 @@
 			}
 		%>
 	</table>
+	</div>
 </body>
 </html>

@@ -57,7 +57,7 @@ public class UserManagementController {
 			return "admin_resultNewUser";
 		}else{
 			mm.addAttribute(MYKEY.MESSAGE,"Error: try again!");
-			return "redirect:/RestaurantSpring/user-manage/create-user";
+			return "redirect:/admin/user-manage";
 		}
 	}
 

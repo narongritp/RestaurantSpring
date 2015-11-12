@@ -16,7 +16,12 @@
 		out.print("<button>Home</button></a>&nbsp;&nbsp;");
 		if(type==1){
 			out.print("<br><br><strong>Admin : </strong>");
-			
+			out.print("<a href='/RestaurantSpring/admin/manage-user'>");
+			out.print("<button>Manage User</button></a>&nbsp;&nbsp;");
+			out.print("<a href='/RestaurantSpring/admin/manage-foodmenu'>");
+			out.print("<button>Manage Food</button></a>&nbsp;&nbsp;");
+			out.print("<a href='/RestaurantSpring/order-manage/view-listorder'>");
+			out.print("<button>Manage Order</button></a>&nbsp;&nbsp;");
 		}
 		else if(type==1||type==2){
 			out.print("<br><br><strong>Recieve Orders : </strong>");

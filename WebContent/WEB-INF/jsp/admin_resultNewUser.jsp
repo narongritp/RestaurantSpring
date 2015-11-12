@@ -8,6 +8,7 @@
 <%@include file="include/style.jsp"%>
 </head>
 <body style="font-family:'tahoma';">
+<div class="content">
 	<fieldset style="width: 40%">
 		<legend>Login</legend>
 		<table>
@@ -42,5 +43,6 @@
 			</tr>
 		</table>
 	</fieldset>
+	</div>
 </body>
 </html>

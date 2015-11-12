@@ -169,4 +169,16 @@ public class FoodDAOImpl implements FoodDAO{
 		});
 	}
 
+	@Override
+	public List<String> getFoodType() {
+		String SQL = "SELECT "+FIELD_TYPE+" FROM "+ENTITY_NAME+" GROUP BY "+FIELD_TYPE;
+		JdbcTemplate jdbc = new JdbcTemplate(dataSource);
+		return jdbc.query(SQL, new RowMapper<String>(){
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getString(FIELD_TYPE);
+			}
+		});
+	}
+
 }

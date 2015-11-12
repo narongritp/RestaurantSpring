@@ -43,6 +43,7 @@ public class OrderManagementController {
 	@RequestMapping(value="add-order")
 	public ModelAndView addOrderPage(HttpServletRequest request,ModelMap mm){
 		UserBean user = (UserBean)request.getSession().getAttribute(MYKEY.SES_USERLOGIN);
+		request.getSession().removeAttribute(MYKEY.SES_USERLOGIN);
 		if(user.getType().equalsIgnoreCase(MYKEY.USER_WAITRESS)
 				||user.getType().equalsIgnoreCase(MYKEY.USER_ADMIN)){
 			return new ModelAndView("ro_addOrder",mm);

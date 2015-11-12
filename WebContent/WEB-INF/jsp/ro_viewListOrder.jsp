@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>List Order</title>
+<title>Order Management</title>
 <%@include file="include/style.jsp"%>
 <style>
 .heading {
@@ -19,14 +19,15 @@
 </style>
 </head>
 <body style="font-family: 'tahoma';">
-	<h1>LIST ORDER</h1>
+	<h1>ORDER MANAGEMENT</h1>
 	<hr>
 	<%@include file="include/navigatevalidate.jsp"%><br>
 	<br>
 	<div align='right'>
 	</div>
 	<hr>
-	<table align="center" border="1" width="90%">
+	<div class="content">
+	<table align="center" border="1" width="100%">
 		<tr align="center">
 			<td class="heading" width="10%" height="60px">ID</td>
 			<td class="heading" width="15%">RECIEVE ORDERS ID</td>
@@ -78,7 +79,7 @@
 			}
 		%>
 	</table>
-
+</div>
 
 </body>
 </html>

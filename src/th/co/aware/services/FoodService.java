@@ -11,4 +11,5 @@ public interface FoodService {
 	public FoodBean getFoodById(int foodId);
 	public List<FoodBean> getFoodByType(String type);
 	public List<FoodBean> getAllFood();
+	public List<String> getFoodType();
 }

@@ -27,8 +27,8 @@
 		<button style="width:100px;height:60px">CHECK OUT!</button></a>
 	</div>
 	<hr>
-
-	<table border="1" width="80%" align="center">
+<div class="content">
+	<table border="1" width="100" align="center">
 		<tr align="center">
 			<td class="heading">ORDER ID ${order.orderId}</td>
 			<td class="heading">ORDER DATE ${order.commitDate}</td>
@@ -53,5 +53,6 @@
 			</td>
 		</tr>
 	</table>
+	</div>
 </body>
 </html>

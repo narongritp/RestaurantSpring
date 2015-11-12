@@ -9,6 +9,7 @@ public interface FoodDAO {
 	public int updateFood(FoodBean food);
 	public int deleteFood(int foodId);
 	public FoodBean getFoodById(int foodId);
+	public List<String> getFoodType();
 	public List<FoodBean> getFoodByType(String type);
 	public List<FoodBean> getAllFood();
 }

@@ -42,4 +42,9 @@ public class FoodServiceImpl implements FoodService{
 		return foodDAO.getAllFood();
 	}
 
+	@Override
+	public List<String> getFoodType() {
+		return foodDAO.getFoodType();
+	}
+
 }

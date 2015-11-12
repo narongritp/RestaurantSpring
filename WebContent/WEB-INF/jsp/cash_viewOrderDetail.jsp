@@ -26,8 +26,8 @@
 	
 	</div>
 	<hr>
-	
-	<table border="1" width="80%" align="center">
+	<div class="content">
+	<table border="1" width="100%" align="center">
 			<tr align="center">
 				<td class="heading">ORDER ID</td>
 				<td class="heading">STATUS</td>
@@ -93,5 +93,6 @@
 				</tr>
 			</c:forEach>
 		</table>
+		</div>
 </body>
 </html>
