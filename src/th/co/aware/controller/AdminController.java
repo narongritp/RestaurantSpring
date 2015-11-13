@@ -83,7 +83,7 @@ public class AdminController {
 	@RequestMapping(value="deleteFood")
 	public String deleteFood(@RequestParam("foodId")String foodId,ModelMap mm){
 		if(foodService.deleteFood(Integer.parseInt(foodId))==1){
-			return "redirect:/manage-foodmenu";
+			return "redirect:/admin/manage-foodmenu";
 		}else{
 			MYLOG.printError("Error : invalid order session!");
 			mm.addAttribute("message", "Error : invalid order session!");
